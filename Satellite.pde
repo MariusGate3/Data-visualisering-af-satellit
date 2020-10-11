@@ -14,8 +14,6 @@ class Satellite {
     // loader json fil
     JSONObject json = loadJSONObject("https://www.n2yo.com/rest/v1/satellite/positions/" + SatelliteID + "/41.702/-76.014/0/2/&apiKey=538VGY-B452WZ-FHHHPQ-4KHA");
 
-    println(SatelliteID);
-
     // loader json arrayet positions ind i variablen positions
     JSONArray positions = json.getJSONArray("positions");
 
@@ -29,7 +27,7 @@ class Satellite {
     Float currentLatitude = CurrentPos.getFloat("satlatitude");
 
     // henter satellittens nuværende latitude
-    Float currentAltitude = CurrentPos.getFloat("sataltitude");
+  //  Float currentAltitude = CurrentPos.getFloat("sataltitude");
 
     // henter satellittens nuværende longitude
     Float currentLongitude = CurrentPos.getFloat("satlongitude");
@@ -37,10 +35,10 @@ class Satellite {
 
 
     float theta = radians(currentLatitude) + PI/2;
-    float phi = radians(currentLongitude) + PI;
+    float phi = radians(-currentLongitude) + PI;
     float x = r * sin(theta) + cos(phi);
-    float y = -r * sin(theta) + sin(phi);
-    float z = r * cos(theta);
+    float y = r * cos(theta);
+    float z = r * sin(theta) * sin(phi);
     pushMatrix();  
     translate(x, y, z);
     box(10);
